@@ -23,7 +23,7 @@
 - 服务器地址
 
 ```
-https://sduonline.cn/isdu/encyclopedia
+刮开查看https://▇▇▇▇▇▇▇▇▇▇▇▇
 ```
 
 ### 初始化
