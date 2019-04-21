@@ -712,6 +712,7 @@
 | 15     | 社科     |
 | 16     | 自然科学 |
 | 17     | 工程技术 |
+| 18     | 通选课   |
 
 - 返回(成功)，其他返回异常值则为失败
 
@@ -855,4 +856,157 @@
 ```
 
 
+
+### 获取我的课程
+
+- URL  
+
+```
+/user/getCourse
+```
+
+- 参数
+
+| 参数名         | 含义       |
+| -------------- | ---------- |
+| openId         | 用户openId |
+
+
+- 返回(成功)，其他返回异常值则为失败
+
+```json
+{
+  "code": 0,
+  "status": "success",
+  "obj": [	//json数组
+      …………
+    {
+      "establishAcademyId": "29",
+      "teacherName": "王杰3",
+      "surplus": "23",
+      "idLong": "sd02910650",
+      "typeName": "通识必修课程",
+      "type": "10",
+      "classTime": "2-13周上:6-2(兴隆山体育馆)",
+      "teacherId": "200799015559",
+      "idShort": "777",
+      "name": "体育(3)",
+      "location": "兴隆山体育馆",
+      "id": 4172,
+      "credit": "1",
+      "establishAcademyName": "体育学院"
+    }
+      …………
+  ]
+}
+```
+
+### 获取我的指定类别课程
+
+- URL  
+
+```
+/user/getCourseByType
+```
+
+- 参数
+
+| 参数名 | 含义             |
+| ------ | ---------------- |
+| openId | 用户openId       |
+| type   | 课程类别，见之前 |
+
+- 返回(成功)，其他返回异常值则为失败
+
+```json
+{
+  "code": 0,
+  "status": "success",
+  "obj": [	//json数组
+      …………
+    {
+      "establishAcademyId": "29",
+      "teacherName": "王杰3",
+      "surplus": "23",
+      "idLong": "sd02910650",
+      "typeName": "通识必修课程",
+      "type": "10",
+      "classTime": "2-13周上:6-2(兴隆山体育馆)",
+      "teacherId": "200799015559",
+      "idShort": "777",
+      "name": "体育(3)",
+      "location": "兴隆山体育馆",
+      "id": 4172,
+      "credit": "1",
+      "establishAcademyName": "体育学院"
+    }
+      …………
+  ]
+}
+```
+
+### 获取课程进度条
+
+- URL  
+
+```
+/user/getCourseProgress
+```
+
+- 参数
+
+| 参数名 | 含义       |
+| ------ | ---------- |
+| openId | 用户openId |
+
+- 返回(成功)，其他返回异常值则为失败
+
+```
+{
+  "code": 0,
+  "status": "success",
+  "obj": [
+    {
+      "name": "国学",
+      "type": "11",
+      "credit": "2.0"
+    },
+    {
+      "name": "创新创业",
+      "type": "12",
+      "credit": "3"
+    },
+    {
+      "name": "艺术",
+      "type": "13",
+      "credit": "4.0"
+    },
+    {
+      "name": "人文",
+      "type": "14",
+      "credit": "2.0"
+    },
+    {
+      "name": "社科",
+      "type": "15",
+      "credit": "3.0"
+    },
+    {
+      "name": "自然科学",
+      "type": "16",
+      "credit": "2.0"
+    },
+    {
+      "name": "工程技术",
+      "type": "17",
+      "credit": "3.5"
+    },
+    {
+      "name": "通选",
+      "type": "18",
+      "credit": "5.5"
+    }
+  ]
+}
+```
 
