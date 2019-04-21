@@ -244,7 +244,7 @@
 | 参数名 | 含义                    |
 | ------ | ----------------------- |
 | id     | 帖子id                  |
-| uid    | 用户id，用户未登录则为0 |
+| openId | 用户id，用户未登录则为0 |
 
 - 返回 
 
@@ -622,4 +622,237 @@
 	"obj": null
 }
 ```
+
+
+
+### 获取所有课程（固定内容，第一请求时直接缓存即可）
+
+- URL 
+
+```
+/course/getAll
+```
+
+- 参数
+
+  无
+
+- 返回(成功)，其他返回异常值则为失败
+
+```json
+{
+	"code": 0,
+	"status": "success",
+	"obj": [	//json 数组里面是每个课程的json对象形式
+	…………
+		{
+			"establishAcademyId": "30",
+			"teacherName": "武蕾3",
+			"surplus": "-1",
+			"idLong": "0303201161",
+			"typeName": "专业必修课",
+			"type": "2",
+			"classTime": "周上:5-3 (软件园5区407d)",
+			"teacherId": "200893000014",
+			"idShort": "777",
+			"name": "高级程序设计语言课程设计(双语)",
+			"location": "软件园5区407d",
+			"id": 20,
+			"credit": "2",
+			"establishAcademyName": "软件学院"
+		}
+	…………
+	]
+}
+```
+
+- course参数说明
+
+| 参数名               | 含义                           |
+| -------------------- | ------------------------------ |
+| establishAcademyId   | 开课单位id                     |
+| establishAcademyName | 开课学院                       |
+| teacherId            | 教师id                         |
+| teacherName          | 教师                           |
+| surplus              | 现容量                         |
+| id                   | id                             |
+| idLong               | 课程号                         |
+| idShort              | 课序号                         |
+| name                 | 课程名                         |
+| typeName             | 种类名称                       |
+| type                 | 种类代码（之后查询请求会用到） |
+| classTime            | 具体上课时间地点               |
+| location             | 上课地点                       |
+| credit               | 学分                           |
+
+
+
+### 按分类获取课程（固定内容，第一请求时直接缓存即可）
+
+- URL 
+
+```
+/course/getByType
+```
+
+- 参数
+
+| 参数名 | 含义   |
+| ------ | ------ |
+| type   | 类别号 |
+
+- 类别号说明
+
+| 类别号 | 含义     |
+| ------ | -------- |
+| 11     | 国学     |
+| 12     | 创新创业 |
+| 13     | 艺术     |
+| 14     | 人文     |
+| 15     | 社科     |
+| 16     | 自然科学 |
+| 17     | 工程技术 |
+
+- 返回(成功)，其他返回异常值则为失败
+
+```json
+{
+	"code": 0,
+	"status": "success",
+	"obj": [	//json 数组里面是每个课程的json对象形式
+	…………
+		{
+			"establishAcademyId": "30",
+			"teacherName": "武蕾3",
+			"surplus": "-1",
+			"idLong": "0303201161",
+			"typeName": "专业必修课",
+			"type": "2",
+			"classTime": "周上:5-3 (软件园5区407d)",
+			"teacherId": "200893000014",
+			"idShort": "777",
+			"name": "高级程序设计语言课程设计(双语)",
+			"location": "软件园5区407d",
+			"id": 20,
+			"credit": "2",
+			"establishAcademyName": "软件学院"
+		}
+	…………
+	]
+}
+```
+
+
+
+### 课程详情页
+
+- URL 
+
+```
+/course/detail
+```
+
+- 测试
+
+  ```
+  /course/detail？courseId=20
+  ```
+
+- 参数
+
+| 参数名   | 含义     |
+| -------- | -------- |
+| courseId | 课程的id |
+
+- 返回(成功)，其他返回异常值则为失败
+
+```json
+{
+	"code": 0,
+	"status": "success",
+	"obj": {
+		"establishAcademyId": "30",
+		"teacherName": "武蕾3",
+		"surplus": "-1",
+		"idLong": "0303201161",
+		"typeName": "专业必修课",
+		"type": "2",
+		"classTime": "周上:5-3 (软件园5区407d)",
+		"teacherId": "200893000014",
+		"idShort": "777",
+		"name": "高级程序设计语言课程设计(双语)",
+		"location": "软件园5区407d",
+		"comment": [  //评论一项为json数组，里面是每条评论的json对象形式
+            …………
+            {
+			"evaluation": "xxxxx",
+			"funLevel": "xxxx",
+			"harvest": "xxxx",
+			"valuation": "xxxx",
+			"attendanceWay": "xxxx",
+			"attendanceRate": "xxxx",
+			"id": 1,
+			"courseId": "20",
+			"userId": 1,
+			"difficultLevel": "xxxx"
+		}
+    …………
+    ],
+		"id": 20,
+		"credit": "2",
+		"establishAcademyName": "软件学院"
+	}
+}
+```
+
+- comment 参数说明
+
+| 参数名         | 含义         |
+| -------------- | ------------ |
+| id             | id           |
+| courseId       | 课程id       |
+| userId         | 评价的用户id |
+| attendanceRate | 考勤频率     |
+| attendanceWay  | 考勤方式     |
+| funLevel       | 趣味程度     |
+| difficultLevel | 课程难度     |
+| valuation      | 给分情况     |
+| harvest        | 课程收获     |
+| evaluation     | 补充评价     |
+
+
+
+### 添加评价
+
+- URL  **（POST）**
+
+```
+/course/comment/add
+```
+
+- 参数
+
+| 参数名         | 含义       |
+| -------------- | ---------- |
+| openId         | 用户openId |
+| courseId       | 回答课程id |
+| attendanceRate | 考勤频率   |
+| attendanceWay  | 考勤方式   |
+| funLevel       | 趣味程度   |
+| difficultLevel | 课程难度   |
+| valuation      | 给分情况   |
+| harvest        | 课程收获   |
+| evaluation     | 补充评价   |
+
+- 返回(成功)，其他返回异常值则为失败
+
+```json
+{
+	"code": 0,
+	"status": "success", 
+	"obj": null
+}
+```
+
+
 
