@@ -6,11 +6,12 @@
 
 [TOC]
 
-| 更新版本号 | 更新人员 | 更新日期   | 更新内容         |
-| ---------- | -------- | ---------- | ---------------- |
-| v1.0       | 耿继勋   | 2019-04-07 | 初始化           |
-| v1.1       | 耿继勋   | 2019-04-11 | 修改init授权接口 |
-| v1.2       | 耿继勋   | 2019-04-19 | 修改部分接口     |
+| 更新版本号 | 更新人员 | 更新日期   | 更新内容           |
+| ---------- | -------- | ---------- | ------------------ |
+| v1.0       | 耿继勋   | 2019-04-07 | 初始化             |
+| v1.1       | 耿继勋   | 2019-04-11 | 修改init授权接口   |
+| v1.2       | 耿继勋   | 2019-04-19 | 修改部分接口       |
+| v1.3       | 耿继勋   | 2019-04-25 | 添加管理员权限相关 |
 
 
 
@@ -1007,6 +1008,227 @@
       "credit": "5.5"
     }
   ]
+}
+```
+
+
+
+
+
+### 收藏问题
+
+- URL 
+
+```
+/post/collect
+```
+
+- 参数
+
+| 参数名 | 含义   |
+| ------ | ------ |
+| postId | 帖子id |
+| openId | 用户id |
+
+- 返回(成功)，其他返回异常值则为失败
+
+```json
+{
+	"code": 0,
+	"status": "success",
+	"obj": null
+}
+```
+
+
+
+### 获取用户收藏帖子
+
+- URL
+
+```
+/user/getCollect
+```
+
+- 参数
+
+| 参数名 | 含义   |
+| ------ | ------ |
+| openId | openId |
+
+- 返回 
+
+```json
+{
+  "code": 0,
+  "status": "success",
+  "obj": [
+      				//json数组
+    {
+      "commentNumber": 0,
+      "images": "http://202.194.15.147:8382/isduImg/encyclopedia/1555342771373614.jpg-",
+      "uname": "uid_700301003",
+      "uavatar": "https://wx.qlogo",
+      "collectId": "506-",
+      "urgentId": "",
+      "urgentNumber": 0,
+      "title": "123",
+      "userId": "506",
+      "content": "[{\"type\":0,\"content\":\"http://202.194.15.147:8382/isduImg/encyclopedia/1555342771373614.jpg\"}]",
+      "uid": "506",
+      "isSolved": 0,
+      "likeId": "",
+      "commentId": "",
+      "id": 165,
+      "time": "1556110147471",
+      "tag": null,
+      "collectNumber": 1,
+      "value": 56110.47471,
+      "likeNumber": 0,
+      "info": "[图片]"
+    }
+      
+  ]
+}
+```
+
+
+
+### 通过是否解决获取用户收藏的帖子
+
+- URL
+
+```
+/user/getPostByIsSolved
+```
+
+- 参数
+
+| 参数名   | 含义                      |
+| -------- | ------------------------- |
+| isSolved | int类型0为待解决，1为解决 |
+| openId   | openId                    |
+
+- 返回 
+
+```json
+{
+  "code": 0,
+  "status": "success",
+  "obj": [
+      				//json数组
+    {
+      "commentNumber": 0,
+      "images": "http://202.194.15.147:8382/isduImg/encyclopedia/1555342771373614.jpg-",
+      "uname": "uid_700301003",
+      "uavatar": "https://wx.qlogo",
+      "collectId": "506-",
+      "urgentId": "",
+      "urgentNumber": 0,
+      "title": "123",
+      "userId": "506",
+      "content": "[{\"type\":0,\"content\":\"http://202.194.15.147:8382/isduImg/encyclopedia/1555342771373614.jpg\"}]",
+      "uid": "506",
+      "isSolved": 0,
+      "likeId": "",
+      "commentId": "",
+      "id": 165,
+      "time": "1556110147471",
+      "tag": null,
+      "collectNumber": 1,
+      "value": 56110.47471,
+      "likeNumber": 0,
+      "info": "[图片]"
+    }
+      
+  ]
+}
+```
+
+
+
+
+
+### 管理员/用户自身 删除问题
+
+- URL
+
+```
+/post/delete
+```
+
+- 参数
+
+| 参数名 | 含义           |
+| ------ | -------------- |
+| postId | 被删除的问题id |
+| openId | openId         |
+
+- 返回  （其他返回则删除异常）
+
+```json
+{
+	"code": 0,
+	"status": "success",
+	"obj": null
+}
+```
+
+
+
+### 管理员/用户自身 删除回答
+
+- URL
+
+```
+/comment/delete
+```
+
+- 参数
+
+| 参数名 | 含义           |
+| ------ | -------------- |
+| id     | 被删除的回答id |
+| openId | openId         |
+
+- 返回  （其他返回则删除异常）
+
+```json
+{
+	"code": 0,
+	"status": "success",
+	"obj": null
+}
+```
+
+
+
+### 管理员/用户自身 判断是否已解决
+
+- 说明
+
+  标记是否已经解决可以设为同一个按钮，类似 点赞/取消点赞
+
+- URL
+
+```
+/post/changeIsSolved
+```
+
+- 参数
+
+| 参数名 | 含义   |
+| ------ | ------ |
+| postId | 问题id |
+| openId | openId |
+
+- 返回  （其他返回则删除异常）
+
+```json
+{
+	"code": 0,
+	"status": "success",
+	"obj": "1"	//isSolved改变后的状态，0为待解决，1为解决
 }
 ```
 
